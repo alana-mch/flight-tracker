@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Radar File Parser</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+    {% if graph %}
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    {% endif %}
+
+    <style>
+        .graph-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 700px;      
+            overflow: hidden;      
+        }
+
+        .graph-box h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>📡 Radar Flight Data Parser</h1>
+
+    <!-- Upload Form -->
+    <form method="POST" enctype="multipart/form-data">
+        <label>Upload radar file (.txt)</label>
+        <input type="file" name="file" required>
+
+        <label>Enter SSR code</label>
+        <input type="text" name="ssr" maxlength="4" required>
+
+        <button type="submit">Parse File</button>
+    </form>
+
+    <!-- Error Message -->
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <!-- Results Table -->
+    {% if records %}
+        <h2>Results for SSR {{ ssr }}</h2>
+
+        <table>
+            <tr>
+                <th>SSR</th>
+                <th>Time</th>
+                <th>Track</th>
+                <th>Level</th>
+                <th>X</th>
+                <th>Y</th>
+            </tr>
+
+            {% for r in records %}
+            <tr>
+                <td>{{ r.SSR }}</td>
+                <td>{{ r.Time }}</td>
+                <td>{{ r.Track }}</td>
+                <td>{{ r.Level }}</td>
+                <td>{{ r.X }}</td>
+                <td>{{ r.Y }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    <!-- Flight Path Graph -->
+    {% if graph %}
+    <div class="graph-box">
+        <h2>Flight Path</h2>
+        {{ graph | safe }}
+    </div>
+    {% endif %}
+
+</div>
+</body>
+</html>
