@@ -12,6 +12,9 @@ Flask app for parsing radar flight data and plotting flight paths from a one wee
 A full walkthrough of the application using screenshots is available here:
 documents/app-flow.pdf
 
+## Requirements
+Documents/requirements.txt
+
 ## Running the app
 - Clone the repository:
    git clone https://github.com/alana-mch/flight-tracker.git
